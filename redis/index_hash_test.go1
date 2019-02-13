@@ -1,0 +1,37 @@
+package redis
+
+import "testing"
+
+type UserInfo struct {
+	Uid      int64  `sql:"pk" name:"id" tname:"userInfo" pk:"1"`
+	Username string `sql:"nn" name:"username" `
+}
+func Test_Add(t *testing.T) {
+	pool, err := CreateRedisPool(map[string]interface{}{
+		"min": 1,
+		"max": 2,
+		"host": "localhost",
+		"port": "3306",
+		"db": 0
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	conn, err := pool.Get()
+	if err != nil {
+		t.Error(err)
+	}
+	hashId , err:= conn.Exec("incr hashId")
+	if err != nil {
+		t.Error(err)
+	}
+	model := CreateHashModel((*UserInfo)(nil))
+	err := model.Add("hashTest", &UserInfo{
+		Uid: hashId,
+		Username: "tubaoge"
+	})
+	if err != nil {
+		t.Error(err)
+	}
+}
+ 

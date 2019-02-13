@@ -4,11 +4,12 @@
 		"url": "https://github.com/qiongtubao/latte_go_db.git"
 	},
     "devDependencies": {
-        "go-sqlite3": "github.com/mattn/go-sqlite3"
+        "go-sqlite3": "github.com/mattn/go-sqlite3",
+        "go-redis":"github.com/go-redis/redis"
     },
     "engines": {
         "go_version" : ">= 1.6.0",
         "go_system": "drawin/amd64"
     },
-    "testDir": ["sqlite3"]
+    "testDir": [ "redis/hash"]
 }
